@@ -65,10 +65,10 @@ Use higher order function to multiplyBy2
 
 
 
-const reduce = (array, howToCombine, bulidingUp) => {
+const reduce = (array, howToCombine, buildingUp) => {
 	for (var i = 0; i < array.length; i++) {
-		bulidingUp = howToCombine(bulidingUp, array[i])
-		return bulidingUp;
+		buildingUp = howToCombine(buildingUp, array[i])
+		return buildingUp;
 	}
 }
 
@@ -81,5 +81,61 @@ const summed = reduce( [1, 2, 3], add, 0 )
 --------------------
 js top three best features
 1. prototypal nature => array.push() -> doesn't find this in array object it doesn't give up then loop up the __proto__ hidden property
+2. ?
+3. ?
 
 
+
+--------------------
+reduce, filter and chaining higher ourder function
+=> function mai function ko pass kr callback called a higher order function 
+
+- easier to add features
+	=> filter()
+	=> reduce()
+	=> map()
+
+- more readable
+	better function, variable Naming
+	array.filter(greaterThan2).reduce(add,0) 
+
+- Easier to debug
+	=> understanding under-the-hood
+*/
+
+
+
+// custom code redue -----
+const reduce = (array, howToCombine, buildingUp) => {
+ for (let i = 0; i < array.length; i++){
+ buildingUp = howToCombine(buildingUp, array[i])
+ }
+ return buildingUp
+}
+const add = (a, b) => a + b
+const summed = reduce([1,2,3], add, 0)
+
+
+
+// Build in redue method -----
+const add = (a, b) => a + b
+const summed = [1,2,3].reduce(add, 0) // summed is 6
+
+
+
+// Reduce as the most versatile function in programming -----
+const multiplyBy2 = x => x*2;
+const add3 = x => x+3;
+const divideBy5 = x => x/5;
+
+const reduce = (array, howToCombine, buildingUp) => {
+ for (let i = 0; i < array.length; i++){
+ buildingUp = howToCombine(buildingUp, array[i])
+ }
+ return buildingUp
+}
+
+const runFunctionOnInput = (input, fn) => {
+	return fn(input);
+}
+const output = reduce([multiplyBy2, add3, divideBy5], runFunctionOnInput, 11)
