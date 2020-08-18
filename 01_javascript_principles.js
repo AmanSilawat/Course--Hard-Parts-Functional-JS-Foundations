@@ -96,7 +96,7 @@ reduce, filter and chaining higher ourder function
 	=> map()
 
 - more readable
-	better function, variable Naming
+	better human redable naming of functions and variables
 	array.filter(greaterThan2).reduce(add,0) 
 
 - Easier to debug
@@ -123,7 +123,9 @@ const summed = [1,2,3].reduce(add, 0) // summed is 6
 
 
 
-// Reduce as the most versatile function in programming -----
+
+// Function composition -------
+// Reduce as the most VERSATILE function in programming -----
 const multiplyBy2 = x => x*2;
 const add3 = x => x+3;
 const divideBy5 = x => x/5;
@@ -135,7 +137,20 @@ const reduce = (array, howToCombine, buildingUp) => {
  return buildingUp
 }
 
-const runFunctionOnInput = (input, fn) => {
+const runFunctionOnInput = (input, fn) => {  //VERSATILE FUNCTION 
 	return fn(input);
 }
 const output = reduce([multiplyBy2, add3, divideBy5], runFunctionOnInput, 11)
+
+
+
+/* monads, partial application, carrying
+Function composition
+— Easier to add features
+	=> This is the essential aspect of functional javascript - being able to list of our units of code by name and have them run one by one as independent, self-contained pieces 
+
+— More readable
+	=> reduce here is often wrapped in compose to say ‘combine up’ the functions to run our data through them one by one. The style is ‘point free’
+
+— Easier to debug
+	=> I know exactly the line of code my bug is in - it’s got a label!
