@@ -154,3 +154,127 @@ Function composition
 
 — Easier to debug
 	=> I know exactly the line of code my bug is in - it’s got a label!
+
+
+
+
+======== Closer =========== */
+const functionCreator = () => {
+	let counter = 0;
+
+	const add3 = (num => {
+		const result = num+3;
+		return result;
+	});
+	return add3;  //return function defination into generatedFunc
+	// after return delete execution context and remove call stack "generatedFunc"
+	// callstack backout to global
+}
+const generatedFunc = functionCreator(); //add to call stack
+// add3 method is inside of the generatedFunc
+
+const result = generatedFunc(2); //add to call stack : and call add3
+
+
+/*
+=> heap it's not global memory
+=> array, object, functin ever declared, they're all stored in heap memory
+
+Heap : 
+				'add3'
+	=> 10012 : -►[f]-►
+
+
+dominates :- 
+asyncronous
+persistence of statues around asyncronous callbacks
+dominates iterators
+generators - behind the seen
+async - behind the seen
+dominates event loop
+
+*/
+
+
+
+
+//Example: witout closer
+const outer = () => {
+	let counter = 0;
+	const incrementCounter = () => {
+		counter++;
+	}
+	incrementCounter();
+}
+
+outer();
+
+
+
+//Example: with closer
+const outer = () => { //declaring a function name outer
+	let counter = 0;
+	const incrementCounter = () => {
+		counter++;
+	}
+	return incrementCounter();
+	// after return this execution context is garbage collected
+}
+
+const newFunction = outer(); //
+
+/*
+=== store data in function two type ===
+temporary: local variable enviroment
+permanent: persistence, hidden property [[__proto__]]
+
+
+
+backpack:
+	=> P. L. S. R. D.
+	=> Persistent Lexical Scope Reference Data
+
+	=> C. O. V. E.
+	=> Closed Over Variable Enviroment
+
+	=> Backpack
+
+	=> Closer
+*/
+
+
+
+
+
+// Function Decoration =========================
+const oncify = (convertMe) => {
+	let counter = 0;
+	const inner = (input) => {
+		if (counter === 0) {
+			const output = convertMe(input);
+						  //multiplyBy2( 10 )     :multiplyBy2 stored into backpack
+			return output;
+		}
+		return "Sorry";
+	}
+	return inner;
+}
+const multiplyBy2 = num => num*2;
+
+const oncifiedMultiplyBy2 = oncify(multiplyBy2);
+
+//invoking a function with attech a backpack this type is calld backpack
+oncifiedMultiplyBy2(10); //20 //inner function: backpack
+oncifiedMultiplyBy2(7); //Sorry //inner function: backpack
+
+
+
+/*
+Function decoration
+	— Easier to add features
+		=> We can ’pseudo’(appear) edit our functions that we’ve already made - into functions that behave similar but with bonus features!
+
+	— Easier to debug
+		=> Definitely need to know how it’s working under the hood!
+
+
