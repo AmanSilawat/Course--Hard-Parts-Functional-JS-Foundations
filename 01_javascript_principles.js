@@ -251,8 +251,8 @@ const oncify = (convertMe) => {
 	let counter = 0;
 	const inner = (input) => {
 		if (counter === 0) {
-			const output = convertMe(input);
-						  //multiplyBy2( 10 )     :multiplyBy2 stored into backpack
+			const output = convertMe(input);  //multiplyBy2( 10 )     :multiplyBy2 stored into backpack
+			counter++;						  
 			return output;
 		}
 		return "Sorry";
@@ -277,4 +277,16 @@ Function decoration
 	— Easier to debug
 		=> Definitely need to know how it’s working under the hood!
 
+*/
+const multiply = (a, b) => a * b;
 
+function prefillFunction(fu, prefilledValue) {
+	const = (liveInput) => {
+		const output = fn(liveInput, prefilledValue);
+		return output;
+	}
+	return inner;
+}
+
+const multiplyBy2 = prefillFunction(multiply, 2);
+const result = multiplyBy2(5);
