@@ -278,6 +278,9 @@ Function decoration
 		=> Definitely need to know how it’s working under the hood!
 
 */
+
+
+// partial application 
 const multiply = (a, b) => a * b;
 
 function prefillFunction(fu, prefilledValue) {
